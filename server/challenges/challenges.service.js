@@ -58,24 +58,19 @@ module.exports = {
       { id: 5, name: "Ayesha", age: 28, city: "Lahore", active: true },
     ];
 
-    // total users
     const total = u.length;
 
-    // average age
     const averageAge = (
       u.reduce((acc, curr) => (acc = acc + curr.age), 0) / u.length
     ).toFixed(1);
 
-    // active user names
     const active = u.filter((u) => u.active).map((u) => u.name);
 
-    // count by city
     const countByCity = u.reduce((acc, curr) => {
       acc[curr.city] = (acc[curr.city] || 0) + 1;
       return acc;
     }, {});
 
-    // top 3 oldest users
     const topOldest = u
       .sort((a, b) => b.age - a.age)
       .slice(0, 3)
