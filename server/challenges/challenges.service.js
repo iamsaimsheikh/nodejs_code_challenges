@@ -76,10 +76,21 @@ module.exports = {
     }, {});
 
     // top 3 oldest users
-    const topOldest = u.sort((a, b) => b.age - a.age).slice(0, 3).map(u => u.name);
+    const topOldest = u
+      .sort((a, b) => b.age - a.age)
+      .slice(0, 3)
+      .map((u) => u.name);
 
     res.json({
       results: { total, averageAge, active, countByCity, topOldest },
     });
+  },
+
+  paginate: (req, res) => {
+    const u = require("../data/challenges/userData");
+    const { s, p, t } = req.query;
+    let pu = u.slice(s * p, u.length);
+    pu = pu.length < t ? pu : pu.slice(0, t);
+    res.json({ s: s, p: p, t: t, u: pu });
   },
 };
