@@ -48,4 +48,38 @@ module.exports = {
 
     res.json({ u: u, r: r });
   },
+
+  userAnalytics: async (req, res) => {
+    const u = [
+      { id: 1, name: "Saim", age: 22, city: "Karachi", active: true },
+      { id: 2, name: "Ali", age: 17, city: "Lahore", active: false },
+      { id: 3, name: "Zara", age: 30, city: "Karachi", active: true },
+      { id: 4, name: "Fahad", age: 25, city: "Islamabad", active: false },
+      { id: 5, name: "Ayesha", age: 28, city: "Lahore", active: true },
+    ];
+
+    // total users
+    const total = u.length;
+
+    // average age
+    const averageAge = (
+      u.reduce((acc, curr) => (acc = acc + curr.age), 0) / u.length
+    ).toFixed(1);
+
+    // active user names
+    const active = u.filter((u) => u.active).map((u) => u.name);
+
+    // count by city
+    const countByCity = u.reduce((acc, curr) => {
+      acc[curr.city] = (acc[curr.city] || 0) + 1;
+      return acc;
+    }, {});
+
+    // top 3 oldest users
+    const topOldest = u.sort((a, b) => b.age - a.age).slice(0, 3).map(u => u.name);
+
+    res.json({
+      results: { total, averageAge, active, countByCity, topOldest },
+    });
+  },
 };
