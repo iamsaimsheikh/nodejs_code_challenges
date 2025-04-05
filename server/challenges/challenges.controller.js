@@ -7,4 +7,5 @@ router.get("/count-instances", challengesService.countInstances)
 router.get("/group-by-city", challengesService.groupByCity)
 router.get("/user-analytics", challengesService.userAnalytics)
 router.get("/paginate", challengesService.paginate)
+router.get("/read-write-fs-file", challengesService.readFsFile)
 module.exports = router;

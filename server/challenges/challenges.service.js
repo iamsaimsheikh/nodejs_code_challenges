@@ -88,4 +88,20 @@ module.exports = {
     pu = pu.length < t ? pu : pu.slice(0, t);
     res.json({ s: s, p: p, t: t, u: pu });
   },
+
+  readFsFile: async (req, res) => {
+    const fs = require("fs/promises"),
+      path = require("path"),
+      { cleanText } = require("../utils.js/text.utils");
+
+    const filePath = path.resolve(__dirname, "../data/challenges/textData.txt");
+    let tf = await fs.readFile(filePath, "utf-8");
+    tf = cleanText(tf);
+    await fs.writeFile(
+      path.resolve(__dirname, "../data/challenges/clean.txt"),
+      tf,
+      { encoding: "utf-8" }
+    );
+    res.json({ t: tf });
+  },
 };
